@@ -1,12 +1,21 @@
 import {readData} from '../APIRequest/APIRequest';
+import {showDatas} from '../ShowDatas/ShowDatas';
 
-let newResolve;
-
-function searchCity (cityName, newUrl) {
-	readData(newUrl).then(function(res){
-		console.log(res);
-	}).catch(function(rej) {
-		console.log(rej);
+// searchInput method using readData from APIRequest 
+// (readData returns Promise)
+function searchCity (url) {
+	console.log("Sending a query to the API");
+	readData(url)
+	.then(function(res){
+		console.log("Sending a query completed successfully");
+		return (res);
+	})
+	.then(function(res){
+		showDatas(res);
+	})
+	.catch(function(rej) {
+		console.log("Query sending failed");
+		return (rej);
 	}); 
 }
 

@@ -3,22 +3,27 @@
 
 var _SearchBar = require('./components/SearchBar/SearchBar');
 
+var _SourceLink = require('./components/SourceLink/SourceLink');
+
+var _CurrentDay = require('./components/CurrentDay/CurrentDay');
+
 var key = "77495ca5727d41468325a028e4c74bcf";
 
 var submitKey = document.querySelector('.weatherForm__submit');
 submitKey.addEventListener("click", function (e) {
-	var cityName = document.querySelector('.weatherForm__input').value;
-	var newUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?city=' + cityName + '&lang=pl&key=' + key;
 	e.preventDefault();
-	(0, _SearchBar.searchCity)(cityName, newUrl);
+	var cityName = document.querySelector('.weatherForm__input').value;
+	var newUrl = new _SourceLink.SourceLink("current", cityName, key);
+	(0, _SearchBar.searchCity)(newUrl.createLink());
 });
 
-},{"./components/SearchBar/SearchBar":3}],2:[function(require,module,exports){
+},{"./components/CurrentDay/CurrentDay":3,"./components/SearchBar/SearchBar":4,"./components/SourceLink/SourceLink":6}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+// promise with XMLHyypRequest async
 function readData(url) {
 	return new Promise(function (resolve, rejest) {
 		var req = new XMLHttpRequest();
@@ -29,6 +34,7 @@ function readData(url) {
 		req.addEventListener("error", function () {
 			return reject(req.statusText);
 		});
+		console.log("Sending request from APIRequest.js");
 		req.send();
 	});
 }
@@ -36,6 +42,18 @@ function readData(url) {
 exports.readData = readData;
 
 },{}],3:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var showCurrentDay = function showCurrentDay(obj) {
+	console.log(obj);
+};
+
+exports.showCurrentDay = showCurrentDay;
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45,16 +63,67 @@ exports.searchCity = undefined;
 
 var _APIRequest = require('../APIRequest/APIRequest');
 
-var newResolve = void 0;
+var _ShowDatas = require('../ShowDatas/ShowDatas');
 
-function searchCity(cityName, newUrl) {
-	(0, _APIRequest.readData)(newUrl).then(function (res) {
-		console.log(res);
+// searchInput method using readData from APIRequest 
+// (readData returns Promise)
+function searchCity(url) {
+	console.log("Sending a query to the API");
+	(0, _APIRequest.readData)(url).then(function (res) {
+		console.log("Sending a query completed successfully");
+		return res;
+	}).then(function (res) {
+		(0, _ShowDatas.showDatas)(res);
 	}).catch(function (rej) {
-		console.log(rej);
+		console.log("Query sending failed");
+		return rej;
 	});
 }
 
 exports.searchCity = searchCity;
 
-},{"../APIRequest/APIRequest":2}]},{},[1]);
+},{"../APIRequest/APIRequest":2,"../ShowDatas/ShowDatas":5}],5:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var showDatas = function showDatas(obj) {
+	console.log(obj);
+};
+
+exports.showDatas = showDatas;
+
+},{}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SourceLink = function () {
+	function SourceLink(type, city, key) {
+		_classCallCheck(this, SourceLink);
+
+		this.type = type;
+		this.city = city;
+		this.key = key;
+	}
+
+	_createClass(SourceLink, [{
+		key: "createLink",
+		value: function createLink() {
+			return "https://api.weatherbit.io/v2.0/" + this.type + "?city=" + this.city + "&lang=pl&key=" + this.key;
+		}
+	}]);
+
+	return SourceLink;
+}();
+
+exports.SourceLink = SourceLink;
+
+},{}]},{},[1]);

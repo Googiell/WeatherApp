@@ -1,12 +1,13 @@
 import {searchCity} from './components/SearchBar/SearchBar';
-
+import {SourceLink} from './components/SourceLink/SourceLink';
+import {showCurrentDay} from './components/CurrentDay/CurrentDay';
 
 const key = "77495ca5727d41468325a028e4c74bcf";
 
 const submitKey = document.querySelector('.weatherForm__submit');
 submitKey.addEventListener("click", (e) => {
-	const cityName = document.querySelector('.weatherForm__input').value;
-	const newUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${cityName}&lang=pl&key=${key}`;
 	e.preventDefault();
-	searchCity(cityName, newUrl);
+	const cityName = document.querySelector('.weatherForm__input').value;
+	const newUrl = new SourceLink("current", cityName, key);
+	searchCity(newUrl.createLink());
 });
