@@ -12,9 +12,11 @@ var key = "77495ca5727d41468325a028e4c74bcf";
 var submitKey = document.querySelector('.weatherForm__submit');
 submitKey.addEventListener("click", function (e) {
 	e.preventDefault();
-	var type = "current";
+	// const type = "current";
+	var type = "forecast/daily";
 	var cityName = document.querySelector('.weatherForm__input').value;
 	var newUrl = new _SourceLink.SourceLink(type, cityName, key);
+	console.log(newUrl.createLink());
 	(0, _SearchBar.searchCity)(newUrl.createLink(), type);
 });
 
@@ -84,16 +86,20 @@ function searchCity(url, type) {
 exports.searchCity = searchCity;
 
 },{"../APIRequest/APIRequest":2,"../ShowDatas/ShowDatas":5}],5:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
 var showDatas = function showDatas(obj, type) {
+	console.log('switchuje ' + type);
 	switch (type) {
 		case 'current':
 			currentWeather(obj);
+			break;
+		case 'forecast/daily':
+			forecastWeather(obj);
 			break;
 		default:
 			console.log("Error! Undefined type!");
@@ -116,7 +122,32 @@ var currentWeather = function currentWeather(obj) {
 	    rh = _obj$data$.rh,
 	    pres = _obj$data$.pres;
 
-	console.log("Miejscowo\u015B\u0107: " + city_name + " " + country_code + "\n\t\t\t\tData: " + datetime + " \n\t\t\t\tTemperatura: " + temp + "\n\t\t\t\tStan: " + weather.description + "\n\t\t\t\tOdczuwalna: " + app_temp + " \n\t\t\t\tWiatr: " + wind_spd + " m/s Kierunek: " + wind_cdir_full + "\n\t\t\t\tWilgotno\u015B\u0107: " + rh + "\n\t\t\t\tCi\u015Bnienie: " + pres);
+	console.log('Miejscowo\u015B\u0107: ' + city_name + ' ' + country_code + '\n\t\t\t\tData: ' + datetime + ' \n\t\t\t\tTemperatura: ' + temp + '\n\t\t\t\tStan: ' + weather.description + '\n\t\t\t\tOdczuwalna: ' + app_temp + ' \n\t\t\t\tWiatr: ' + wind_spd + ' m/s Kierunek: ' + wind_cdir_full + '\n\t\t\t\tWilgotno\u015B\u0107: ' + rh + '\n\t\t\t\tCi\u015Bnienie: ' + pres);
+};
+
+var namesOfAWeek = ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"];
+
+var showDay = function showDay(day) {
+	var datetime = day.datetime,
+	    temp = day.temp,
+	    app_min_temp = day.app_min_temp,
+	    app_max_temp = day.app_max_temp,
+	    weather = day.weather,
+	    description = day.description,
+	    app_temp = day.app_temp,
+	    wind_spd = day.wind_spd,
+	    wind_cdir_full = day.wind_cdir_full,
+	    rh = day.rh,
+	    pres = day.pres;
+
+	console.log('Data: ' + datetime + ' ' + namesOfAWeek[new Date(datetime).getDay()] + '\n\t\t\t\tTemperatura: od ' + app_min_temp + ' do ' + app_max_temp + '\n\t\t\t\tStan: ' + weather.description + '\n\t\t\t\tOdczuwalna: ' + temp + ' \n\t\t\t\tWiatr: ' + wind_spd + ' m/s Kierunek: ' + wind_cdir_full + '\n\t\t\t\tWilgotno\u015B\u0107: ' + rh + '\n\t\t\t\tCi\u015Bnienie: ' + pres);
+};
+
+var forecastWeather = function forecastWeather(obj) {
+	console.log("forecastWeather HERE!");
+	obj.data.forEach(function (day) {
+		showDay(day);
+	});
 };
 
 exports.showDatas = showDatas;
