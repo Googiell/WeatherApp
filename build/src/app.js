@@ -12,9 +12,10 @@ var key = "77495ca5727d41468325a028e4c74bcf";
 var submitKey = document.querySelector('.weatherForm__submit');
 submitKey.addEventListener("click", function (e) {
 	e.preventDefault();
+	var type = "current";
 	var cityName = document.querySelector('.weatherForm__input').value;
-	var newUrl = new _SourceLink.SourceLink("current", cityName, key);
-	(0, _SearchBar.searchCity)(newUrl.createLink());
+	var newUrl = new _SourceLink.SourceLink(type, cityName, key);
+	(0, _SearchBar.searchCity)(newUrl.createLink(), type);
 });
 
 },{"./components/CurrentDay/CurrentDay":3,"./components/SearchBar/SearchBar":4,"./components/SourceLink/SourceLink":6}],2:[function(require,module,exports){
@@ -67,13 +68,13 @@ var _ShowDatas = require('../ShowDatas/ShowDatas');
 
 // searchInput method using readData from APIRequest 
 // (readData returns Promise)
-function searchCity(url) {
+function searchCity(url, type) {
 	console.log("Sending a query to the API");
 	(0, _APIRequest.readData)(url).then(function (res) {
 		console.log("Sending a query completed successfully");
 		return res;
 	}).then(function (res) {
-		(0, _ShowDatas.showDatas)(res);
+		(0, _ShowDatas.showDatas)(res, type);
 	}).catch(function (rej) {
 		console.log("Query sending failed");
 		return rej;
@@ -88,8 +89,34 @@ exports.searchCity = searchCity;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-var showDatas = function showDatas(obj) {
-	console.log(obj);
+
+var showDatas = function showDatas(obj, type) {
+	switch (type) {
+		case 'current':
+			currentWeather(obj);
+			break;
+		default:
+			console.log("Error! Undefined type!");
+			break;
+	}
+};
+
+var currentWeather = function currentWeather(obj) {
+	console.log("CURRENT WEATHER");
+	var _obj$data$ = obj.data[0],
+	    city_name = _obj$data$.city_name,
+	    country_code = _obj$data$.country_code,
+	    datetime = _obj$data$.datetime,
+	    temp = _obj$data$.temp,
+	    weather = _obj$data$.weather,
+	    description = _obj$data$.description,
+	    app_temp = _obj$data$.app_temp,
+	    wind_spd = _obj$data$.wind_spd,
+	    wind_cdir_full = _obj$data$.wind_cdir_full,
+	    rh = _obj$data$.rh,
+	    pres = _obj$data$.pres;
+
+	console.log("Miejscowo\u015B\u0107: " + city_name + " " + country_code + "\n\t\t\t\tData: " + datetime + " \n\t\t\t\tTemperatura: " + temp + "\n\t\t\t\tStan: " + weather.description + "\n\t\t\t\tOdczuwalna: " + app_temp + " \n\t\t\t\tWiatr: " + wind_spd + " m/s Kierunek: " + wind_cdir_full + "\n\t\t\t\tWilgotno\u015B\u0107: " + rh + "\n\t\t\t\tCi\u015Bnienie: " + pres);
 };
 
 exports.showDatas = showDatas;

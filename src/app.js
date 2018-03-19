@@ -7,7 +7,8 @@ const key = "77495ca5727d41468325a028e4c74bcf";
 const submitKey = document.querySelector('.weatherForm__submit');
 submitKey.addEventListener("click", (e) => {
 	e.preventDefault();
+	const type = "current";
 	const cityName = document.querySelector('.weatherForm__input').value;
-	const newUrl = new SourceLink("current", cityName, key);
-	searchCity(newUrl.createLink());
+	const newUrl = new SourceLink(type, cityName, key);
+	searchCity(newUrl.createLink(), type);
 });

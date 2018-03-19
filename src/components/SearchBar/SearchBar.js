@@ -3,7 +3,7 @@ import {showDatas} from '../ShowDatas/ShowDatas';
 
 // searchInput method using readData from APIRequest 
 // (readData returns Promise)
-function searchCity (url) {
+function searchCity (url, type) {
 	console.log("Sending a query to the API");
 	readData(url)
 	.then(function(res){
@@ -11,7 +11,7 @@ function searchCity (url) {
 		return (res);
 	})
 	.then(function(res){
-		showDatas(res);
+		showDatas(res, type);
 	})
 	.catch(function(rej) {
 		console.log("Query sending failed");
