@@ -1,9 +1,9 @@
 // switch case for type request
-import {createList} from '../DayList/DayList';
-import {showCurrentDay} from '../CurrentDay/CurrentDay'
+import { createList } from '../DayList/DayList';
+import { showCurrentDay } from '../CurrentDay/CurrentDay';
 
 function showDatas(obj, type) {
-	switch(type) {
+	switch (type) {
 		case 'current': 
 			showCurrentDay(obj.data[0]);
 			break;
@@ -11,11 +11,9 @@ function showDatas(obj, type) {
 			createList(obj);
 			break;
 		default:
-			console.log("Error! Undefined type!");
+			console.log('Error! Undefined type!');
 			break;
 	}
 }
 
-// const namesOfAWeek = ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"];
-
-export {showDatas};
+export { showDatas };

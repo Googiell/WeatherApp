@@ -1,18 +1,19 @@
 // if user wants to check current weather
-import {resultsCase} from '../SourceLink/SourceLink';
+import { resultsCase } from '../SourceLink/SourceLink';
 
-function showCurrentDay (day) {
+function showCurrentDay(day) {
 	if (resultsCase.querySelector('li') != null) resultsCase.innerHTML = ''; // clear old informations
 	// destructuring to catch needed informations
-	const {datetime, temp, app_min_temp, app_max_temp, weather, description, app_temp, wind_spd, wind_cdir_full, rh, pres} = day;
-	const newDay = document.createElement("li");
-	const contentParagraph = document.createElement("p");
+	const { datetime, temp, weather, app_temp: appTemp, wind_spd: windSpd,
+	wind_cdir_full: windDir, rh, pres } = day;
+	const newDay = document.createElement('li');
+	const contentParagraph = document.createElement('p');
 	contentParagraph.textContent = 
 		`Data: ${datetime}
 		Temperatura: ${temp}
 		Stan: ${weather.description}
-		Odczuwalna: ${app_temp} 
-		Wiatr: ${wind_spd} m/s Kierunek: ${wind_cdir_full}
+		Odczuwalna: ${appTemp} 
+		Wiatr: ${windSpd} m/s Kierunek: ${windDir}
 		Wilgotność: ${rh}
 		Ciśnienie: ${pres}`;
 	newDay.appendChild(contentParagraph);
@@ -20,4 +21,4 @@ function showCurrentDay (day) {
 }
 
 
-export {showCurrentDay};
+export { showCurrentDay };

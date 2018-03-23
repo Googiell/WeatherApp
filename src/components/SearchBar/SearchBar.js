@@ -1,19 +1,15 @@
 // searchInput method using readData from APIRequest (readData returns Promise)
 
-import {readData} from '../APIRequest/APIRequest';
-import {showDatas} from '../ShowDatas/ShowDatas';
+import { readData } from '../APIRequest/APIRequest';
+import { showDatas } from '../ShowDatas/ShowDatas';
 
-function searchCity (url, type) {
+function searchCity(url, type) {
 	readData(url)
-	.then(function(res){
-		return (res);
-	})
-	.then(function(res){
+	.then((res) => res)
+	.then((res) => {
 		showDatas(res, type); // function with switch case for type
 	})
-	.catch(function(rej) {
-		return (rej);
-	}); 
+	.catch((rej) => rej); 
 }
 
-export {searchCity};
+export { searchCity };

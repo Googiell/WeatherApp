@@ -1,13 +1,15 @@
 // promise with XMLHttpRequest async
 
-function readData (url) {
-	return new Promise((resolve, rejest) => {
+function readData(url) {
+	return new Promise((resolve, reject) => {
 		const req = new XMLHttpRequest();
-		req.open("GET", url);
-		req.addEventListener("load", () => resolve(JSON.parse(req.responseText))); // all right, return JSON parse object
-		req.addEventListener("error", () => reject(req.statusText)); // error, return request status
+		req.open('GET', url);
+		// all right, return JSON parse object
+		req.addEventListener('load', () => resolve(JSON.parse(req.responseText))); 
+		// error, return request status
+		req.addEventListener('error', () => reject(req.statusText)); 
 		req.send();
 	});
 }
 
-export {readData};
+export { readData };

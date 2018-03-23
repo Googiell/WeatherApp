@@ -13,4 +13,4 @@ class SourceLink {
 // main case to show informations
 const resultsCase = document.querySelector('.results');
 
-export {SourceLink, resultsCase};
+export { SourceLink, resultsCase };
