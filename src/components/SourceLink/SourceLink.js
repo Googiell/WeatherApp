@@ -1,3 +1,4 @@
+// link constructor
 class SourceLink {
 	constructor(type, city, key) {
 		this.type = type;
@@ -9,4 +10,7 @@ class SourceLink {
 	}
 }
 
-export {SourceLink};
+// main case to show informations
+const resultsCase = document.querySelector('.results');
+
+export {SourceLink, resultsCase};

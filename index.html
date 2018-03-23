@@ -11,8 +11,13 @@
 	<p>Hello </p>
 	<form class="weatherForm">
 		<input type="text" class="weatherForm__input">
-		<input type="submit" class="weatherForm__submit" value="Search">
+		<input type="submit" class="weatherForm__submit" value="Search" data-searchOption="current">
 	</form>
+	<form class="optionForm">
+		<label> Current <input type="radio" class="optionForm__radio" name="option" value="current" checked></label>
+		<label> Forecast <input type="radio" class="optionForm__radio" name="option" value="forecast/daily"></label>
+	</form>
+	<section class="results"></section>
 	<!--build:js main.min.js -->
 	<script src='build/src/app.js'></script>
 	<!-- endbuild -->
