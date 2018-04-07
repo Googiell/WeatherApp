@@ -8,6 +8,7 @@ function searchCity(url, type) {
 	.then((res) => res)
 	.then((res) => {
 		showDatas(res, type); // function with switch case for type
+		changeFormView();
 	})
 	.catch((rej) => rej); 
 }

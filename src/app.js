@@ -14,9 +14,11 @@ submitKey.addEventListener('click', (e) => {
 });
 
 // radio elements handling
-const optionFormRadio = document.querySelectorAll('.optionForm__radio');
+const optionFormRadio = document.querySelectorAll('.weatherForm__radio');
 optionFormRadio.forEach(radio => {
 	radio.addEventListener('change', () => {
-	submitKey.dataset.searchoption = this.value; // change type of request and save to submitKey data
+	console.log('zmiana na');
+	console.log(radio.value);
+	submitKey.dataset.searchoption = radio.value; // change type of request and save to submitKey data
 });
 });

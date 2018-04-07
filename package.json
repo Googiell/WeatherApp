@@ -41,6 +41,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "gulp-es6-module-transpiler": "^0.2.2"
+    "gulp-es6-module-transpiler": "^0.2.2",
+    "normalize.css": "^8.0.0"
   }
 }

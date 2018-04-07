@@ -5,12 +5,11 @@ var _SearchBar = require('./components/SearchBar/SearchBar');
 
 var _SourceLink = require('./components/SourceLink/SourceLink');
 
-var _CurrentDay = require('./components/CurrentDay/CurrentDay');
-
-var key = "77495ca5727d41468325a028e4c74bcf";
+// main js file
+var key = '77495ca5727d41468325a028e4c74bcf'; // API key
 
 var submitKey = document.querySelector('.weatherForm__submit');
-submitKey.addEventListener("click", function (e) {
+submitKey.addEventListener('click', function (e) {
 	e.preventDefault();
 	var type = submitKey.dataset.searchoption;
 	var cityName = document.querySelector('.weatherForm__input').value;
@@ -18,31 +17,36 @@ submitKey.addEventListener("click", function (e) {
 	(0, _SearchBar.searchCity)(newUrl.createLink(), type);
 });
 
-var optionFormRadio = document.querySelectorAll(".optionForm__radio");
+// radio elements handling
+var optionFormRadio = document.querySelectorAll('.weatherForm__radio');
 optionFormRadio.forEach(function (radio) {
-	radio.addEventListener("change", function () {
-		submitKey.dataset.searchoption = this.value;
+	radio.addEventListener('change', function () {
+		console.log('zmiana na');
+		console.log(radio.value);
+		submitKey.dataset.searchoption = radio.value; // change type of request and save to submitKey data
 	});
 });
 
-},{"./components/CurrentDay/CurrentDay":3,"./components/SearchBar/SearchBar":6,"./components/SourceLink/SourceLink":8}],2:[function(require,module,exports){
-"use strict";
+},{"./components/SearchBar/SearchBar":6,"./components/SourceLink/SourceLink":8}],2:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-// promise with XMLHyypRequest async
+// promise with XMLHttpRequest async
+
 function readData(url) {
-	return new Promise(function (resolve, rejest) {
+	return new Promise(function (resolve, reject) {
 		var req = new XMLHttpRequest();
-		req.open("GET", url);
-		req.addEventListener("load", function () {
+		req.open('GET', url);
+		// all right, return JSON parse object
+		req.addEventListener('load', function () {
 			return resolve(JSON.parse(req.responseText));
 		});
-		req.addEventListener("error", function () {
+		// error, return request status
+		req.addEventListener('error', function () {
 			return reject(req.statusText);
 		});
-		console.log("Sending request from APIRequest.js");
 		req.send();
 	});
 }
@@ -55,62 +59,71 @@ exports.readData = readData;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-var showCurrentDay = function showCurrentDay(day) {
-	var results = document.querySelector(".results");
-	if (results.querySelector('li') != null) ;
-	results.innerHTML = '';
-	console.log("I will create new day!");
-	var datetime = day.datetime,
+exports.showCurrentDay = undefined;
+
+var _SourceLink = require('../SourceLink/SourceLink');
+
+function showCurrentDay(day) {
+	if (_SourceLink.resultsCase.querySelector('li') != null || _SourceLink.resultsCase.querySelector('div') != null) {
+		_SourceLink.resultsCase.innerHTML = ''; // clear old informations
+	}
+	console.log(day);
+	// destructuring to catch needed informations
+	var cityName = day.city_name,
+	    countryCode = day.country_code,
+	    datetime = day.datetime,
 	    temp = day.temp,
-	    app_min_temp = day.app_min_temp,
-	    app_max_temp = day.app_max_temp,
 	    weather = day.weather,
-	    description = day.description,
-	    app_temp = day.app_temp,
-	    wind_spd = day.wind_spd,
-	    wind_cdir_full = day.wind_cdir_full,
+	    appTemp = day.app_temp,
+	    windSpd = day.wind_spd,
+	    windDir = day.wind_cdir_full,
 	    rh = day.rh,
 	    pres = day.pres;
 
-	var newDay = document.createElement("li");
-	var contentParagraph = document.createElement("p");
-	console.log(day);
-	contentParagraph.textContent = 'Data: ' + datetime + '\n\t\tTemperatura: ' + temp + '\n\t\tStan: ' + weather.description + '\n\t\tOdczuwalna: ' + app_temp + ' \n\t\tWiatr: ' + wind_spd + ' m/s Kierunek: ' + wind_cdir_full + '\n\t\tWilgotno\u015B\u0107: ' + rh + '\n\t\tCi\u015Bnienie: ' + pres;
+	var newDay = document.createElement('div');
+	var infoParagraph = document.createElement('p');
+	infoParagraph.classList.add('results__info');
+	infoParagraph.textContent = '\n\tCurrent weather in ' + cityName + ' ' + countryCode + '\n\t' + datetime + '\n\t';
 
+	var mainInfoParagraph = document.createElement('p');
+	mainInfoParagraph.classList.add('results__mainInfo');
+	mainInfoParagraph.textContent = '\n\t' + temp + String.fromCharCode(176) + ' \n\t' + weather.description + '\n\t'; // 176 - asci degrees
+
+	var contentParagraph = document.createElement('p');
+	contentParagraph.classList.add('results__content');
+	var text = '\n\tOdczuwalna: ' + appTemp + '\n\tWiatr: ' + windSpd + ' m/s Kierunek: ' + windDir + ' \n\tWilgotno\u015B\u0107: ' + rh + ' \n\tCi\u015Bnienie: ' + pres + '\n\t';
+	contentParagraph.textContent = text;
+
+	newDay.appendChild(infoParagraph);
+	newDay.appendChild(mainInfoParagraph);
 	newDay.appendChild(contentParagraph);
-	results.appendChild(newDay);
-};
-
+	_SourceLink.resultsCase.appendChild(newDay);
+} // if user wants to check current weather
 exports.showCurrentDay = showCurrentDay;
 
-},{}],4:[function(require,module,exports){
-"use strict";
+},{"../SourceLink/SourceLink":8}],4:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-var createDay = function createDay(day) {
-	console.log("I will create new day!");
+function createDay(day) {
 	var datetime = day.datetime,
 	    temp = day.temp,
-	    app_min_temp = day.app_min_temp,
-	    app_max_temp = day.app_max_temp,
+	    tempMin = day.app_min_temp,
+	    tempMax = day.app_max_temp,
 	    weather = day.weather,
-	    description = day.description,
-	    app_temp = day.app_temp,
-	    wind_spd = day.wind_spd,
-	    wind_cdir_full = day.wind_cdir_full,
+	    windSpd = day.wind_spd,
+	    windDir = day.wind_cdir_full,
 	    rh = day.rh,
 	    pres = day.pres;
 
-	var newDay = document.createElement("li");
-	var contentParagraph = document.createElement("p");
-
-	contentParagraph.textContent = "Data: " + datetime + "\n\t\tTemperatura: od " + app_min_temp + " do " + app_max_temp + "\n\t\tStan: " + weather.description + "\n\t\tOdczuwalna: " + temp + " \n\t\tWiatr: " + wind_spd + " m/s Kierunek: " + wind_cdir_full + "\n\t\tWilgotno\u015B\u0107: " + rh + "\n\t\tCi\u015Bnienie: " + pres;
-
+	var newDay = document.createElement('li');
+	var contentParagraph = document.createElement('p');
+	contentParagraph.textContent = 'Data: ' + datetime + '\n\t\tTemperatura: od ' + tempMin + ' do ' + tempMax + '\n\t\tStan: ' + weather.description + '\n\t\tOdczuwalna: ' + temp + ' \n\t\tWiatr: ' + windSpd + ' m/s Kierunek: ' + windDir + '\n\t\tWilgotno\u015B\u0107: ' + rh + '\n\t\tCi\u015Bnienie: ' + pres;
 	newDay.appendChild(contentParagraph);
 	return newDay;
-};
+}
 
 exports.createDay = createDay;
 
@@ -124,21 +137,25 @@ exports.createList = undefined;
 
 var _Day = require('../DayList/Day/Day');
 
+var _SourceLink = require('../SourceLink/SourceLink');
+
 // create list function, argument - object from api request
-var createList = function createList(datas) {
-	var results = document.querySelector(".results");
-	if (results.querySelector('li') != null) ;
-	results.innerHTML = '';
-	var newList = document.createElement("ul");
+// if user wants to check forecast daily weather
+function createList(datas) {
+	if (_SourceLink.resultsCase.querySelector('li') != null || _SourceLink.resultsCase.querySelector('div') != null) {
+		_SourceLink.resultsCase.innerHTML = ''; // clear old informations
+	}
+
+	var newList = document.createElement('ul'); // create new list 
 	datas.data.forEach(function (day) {
 		newList.appendChild((0, _Day.createDay)(day));
 	});
-	results.appendChild(newList);
-};
+	_SourceLink.resultsCase.appendChild(newList);
+}
 
 exports.createList = createList;
 
-},{"../DayList/Day/Day":4}],6:[function(require,module,exports){
+},{"../DayList/Day/Day":4,"../SourceLink/SourceLink":8}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -150,17 +167,15 @@ var _APIRequest = require('../APIRequest/APIRequest');
 
 var _ShowDatas = require('../ShowDatas/ShowDatas');
 
-// searchInput method using readData from APIRequest 
-// (readData returns Promise)
+// searchInput method using readData from APIRequest (readData returns Promise)
+
 function searchCity(url, type) {
-	console.log("Sending a query to the API");
 	(0, _APIRequest.readData)(url).then(function (res) {
-		console.log("Sending a query completed successfully");
 		return res;
 	}).then(function (res) {
-		(0, _ShowDatas.showDatas)(res, type);
+		(0, _ShowDatas.showDatas)(res, type); // function with switch case for type
+		changeFormView();
 	}).catch(function (rej) {
-		console.log("Query sending failed");
 		return rej;
 	});
 }
@@ -179,8 +194,8 @@ var _DayList = require('../DayList/DayList');
 
 var _CurrentDay = require('../CurrentDay/CurrentDay');
 
-var showDatas = function showDatas(obj, type) {
-	console.log('switchuje ' + type);
+// switch case for type request
+function showDatas(obj, type) {
 	switch (type) {
 		case 'current':
 			(0, _CurrentDay.showCurrentDay)(obj.data[0]);
@@ -189,17 +204,15 @@ var showDatas = function showDatas(obj, type) {
 			(0, _DayList.createList)(obj);
 			break;
 		default:
-			console.log("Error! Undefined type!");
+			console.log('Error! Undefined type!');
 			break;
 	}
-};
-
-// const namesOfAWeek = ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"];
+}
 
 exports.showDatas = showDatas;
 
 },{"../CurrentDay/CurrentDay":3,"../DayList/DayList":5}],8:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -209,6 +222,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// link constructor
 var SourceLink = function () {
 	function SourceLink(type, city, key) {
 		_classCallCheck(this, SourceLink);
@@ -219,15 +233,21 @@ var SourceLink = function () {
 	}
 
 	_createClass(SourceLink, [{
-		key: "createLink",
+		key: 'createLink',
 		value: function createLink() {
-			return "https://api.weatherbit.io/v2.0/" + this.type + "?city=" + this.city + "&lang=pl&key=" + this.key;
+			return 'https://api.weatherbit.io/v2.0/' + this.type + '?city=' + this.city + '&lang=pl&key=' + this.key;
 		}
 	}]);
 
 	return SourceLink;
 }();
 
+// main case to show informations
+
+
+var resultsCase = document.querySelector('.results');
+
 exports.SourceLink = SourceLink;
+exports.resultsCase = resultsCase;
 
 },{}]},{},[1]);

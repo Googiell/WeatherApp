@@ -1,0 +1,22 @@
+.results {
+	padding: 0.5rem;
+	width: 100%;
+	margin: 0 auto;
+	.results__info {
+		font-size: 1em;
+		text-align: right;
+		width: 90%;
+		margin: 0 auto;
+	}
+	.results__mainInfo {
+		font-size: 2em;
+		width: 90%;
+		margin: 0 auto;
+	}
+	.results__content {
+		font-size: 1.2em;
+		width: 90%;
+		margin: 0 auto;
+		line-height: 1.4;
+	}
+}
