@@ -1,22 +1,92 @@
 .results {
-	padding: 0.5rem;
-	width: 100%;
-	margin: 0 auto;
-	.results__info {
-		font-size: 1em;
-		text-align: right;
+	height: 100%;
+	width: 100vw;
+	.results__day {
+		position: relative;
+		padding: 2rem 2rem;
+		padding-bottom: 0;
 		width: 90%;
-		margin: 0 auto;
+		height: auto;
+		margin: 0.2rem auto;
+		background-color: #FFFFFF;
+		opacity: 0.7;
+		box-shadow: -2px 4px 50px -9px rgba(0,0,0,0.25);
+		transition: opacity 0.2s;
+		transition: padding-bottom 0.2s;
 	}
-	.results__mainInfo {
-		font-size: 2em;
-		width: 90%;
-		margin: 0 auto;
+	.results__day--today {
+	position: relative;
+	&::after {
+		content: 'Today';
+		position: absolute;
+		top: -1rem;
+		left: 3rem;	
+		background-color: #bfbfbf;
+		color: #FFFFFF;
+		padding: 0.5rem 1rem;
 	}
-	.results__content {
+}
+	.results__day--more {
+		opacity: 1;
+		padding-bottom: 3rem;
+		.day__more {
+			font-size: 1em;
+			margin-top: 1.5rem;
+		}
+	}
+	.day__city {
+		text-align: center;
+		font-weight: 700;
+		font-size: 2.2em;
+		padding: 0.9rem 1rem;
+	}
+	.day__date {
+		text-align: center;
+		font-weight: 400;
+		position: relative;
+		font-size: 1.6em;
+		top: -3rem;
+		padding: 0.9rem 1rem;
+		margin: 0;
+	}
+	.day__icon {
+		position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+    font-size: 3em;
+		padding: 1rem;
+	}
+	.day__temp {
+		font-weight: 600;
+		font-size: 2.2em;
+		margin: 0;
+	}
+	.day__newDate {
+		font-weight: 600;
+		margin: 0.4rem 0;
+	}
+	.day__description {
+		margin: 0;
+		font-weight: 300;
 		font-size: 1.2em;
-		width: 90%;
-		margin: 0 auto;
-		line-height: 1.4;
+	}
+	.day__more {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin-top: 0rem;
+		font-size: 0em;
+		transition: font-size 0.3s;
+		transition: margin-top 0.3s;
+		p {
+			width: 4rem;
+			height: 1rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			text-align: center;
+			font-weight: 500;
+		}
 	}
 }

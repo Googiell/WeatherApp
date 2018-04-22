@@ -4,6 +4,7 @@ function readData(url) {
 	return new Promise((resolve, reject) => {
 		const req = new XMLHttpRequest();
 		req.open('GET', url);
+		console.log(url);
 		// all right, return JSON parse object
 		req.addEventListener('load', () => resolve(JSON.parse(req.responseText))); 
 		// error, return request status

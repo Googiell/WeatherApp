@@ -9,10 +9,19 @@ function createList(datas) {
 	}
 	
 	const newList = document.createElement('ul'); // create new list 
+	newList.classList.add('results__list');
 	datas.data.forEach(day => { 
 		newList.appendChild(createDay(day)); 
 	});
 	resultsCase.appendChild(newList);
+	console.log(resultsCase.childNodes[0]);
+	const days = document.querySelectorAll('.results__day');
+	days.forEach((day) => {
+		day.addEventListener('click', () => {
+			day.classList.toggle('results__day--more');
+		});
+	});
+	newList.childNodes[0].classList.add('results__day--today');
 }
 
 export { createList };

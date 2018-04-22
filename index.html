@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600" rel="stylesheet">
+	<link rel="stylesheet" href="src/css/wi/weather-icons.min.css">
 	<!--build:css css/styles.min.css-->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="src/css/main.css">
 	<link rel="stylesheet" type="text/css" href="src/css/normalize.css">
 
 	<!-- endbuild -->
 </head>
+
 <body>
+<div class="container">
 	<header class="header">
-		<h1 class="header__logo"> MyWeatherApp </h1>
-		<form class="weatherForm">
+		<button class="header__configButton">
+			<span class="fas fa-cog header__configIcon"></span>
+		</button>
+		<a href="https://github.com/Googiell" class="header__link">
+			<span class="fab fa-github"></span>
+		</a>
+	</header>
+	<section class="configuration configuration--hidden">
+		<form class="weatherForm" autocomplete="off">
 			<label for="searchInput" class="weatherForm__inputlabel"> Show me the weather for </label>
 			<input type="text" id="searchInput" class="weatherForm__input" placeholder="City name">
 			<label for="weatherForm__submit" class="weatherForm__submitlabel"><span class="fas fa-search"></span></label>
 			<input type="submit" id="weatherForm__submit" class="weatherForm__submit" value="Szukaj" data-searchOption="current">
-			<div class="weatherForm__radios">
-				<label> Current <input type="radio" class="weatherForm__radio" name="option" value="current" checked></label>
-				<label> Forecast <input type="radio" class="weatherForm__radio" name="option" value="forecast/daily"></label>
-			</div>
 		</form>
-	</header>
-	<section class="results"></section>
+	</section>
+		<section class="startSection">
+			<h2 class="startSection__header"> Simple weather app using VanillaJS </h2>
+			<p class="startSection__paragraph"> Use the config button to find and check the weather for your city! </p>
+			<p class="startSection__paragraph"> Then, visit my <a class="startSection__link" href="https://github.com/Googiell">Github page</a> 
+			to view the source code of this project and others </p>
+		</section>
+		<section class="results">
+		</section>
+	</div>
+	<footer class="footer"></footer>
 	<!--build:js main.min.js -->
 	<script src='build/src/app.js'></script>
 	<!-- endbuild -->
 	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
 </body>
+
 </html>

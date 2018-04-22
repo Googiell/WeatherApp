@@ -1,0 +1,15 @@
+.startSection {
+	padding: 2rem;
+	text-align: center;
+	margin: 4rem auto;
+	box-sizing: border-box;
+	.startSection__header {
+		font-size: 1.4em;
+		font-weight: 400;
+	}
+	.startSection__paragraph {
+		padding: 0 1rem;
+		font-weight: 300;
+		font-size: 1.3em;
+	}
+}

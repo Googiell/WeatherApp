@@ -7,18 +7,20 @@ const key = '77495ca5727d41468325a028e4c74bcf'; // API key
 const submitKey = document.querySelector('.weatherForm__submit');
 submitKey.addEventListener('click', (e) => {
 	e.preventDefault();
-	const type = submitKey.dataset.searchoption; 
+	document.querySelector('.container').classList.remove('container--hidden');
+	document.querySelector('.configuration').classList.add('configuration--hidden');
+	const startSection = document.querySelector('.startSection');
+	if (startSection) startSection.parentNode.removeChild(startSection);
+	const type = 'forecast/daily';
 	const cityName = document.querySelector('.weatherForm__input').value;
 	const newUrl = new SourceLink(type, cityName, key);
+	newUrl.addName();
 	searchCity(newUrl.createLink(), type);
 });
 
-// radio elements handling
-const optionFormRadio = document.querySelectorAll('.weatherForm__radio');
-optionFormRadio.forEach(radio => {
-	radio.addEventListener('change', () => {
-	console.log('zmiana na');
-	console.log(radio.value);
-	submitKey.dataset.searchoption = radio.value; // change type of request and save to submitKey data
-});
+const configButton = document.querySelector('.header__configButton');
+configButton.addEventListener('click', () => {
+	// document.querySelector('.configuration').classList.toggle('configuration--active');
+	document.querySelector('.container').classList.toggle('container--hidden');
+	document.querySelector('.configuration').classList.toggle('configuration--hidden'); 
 });
