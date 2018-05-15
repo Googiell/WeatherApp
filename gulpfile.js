@@ -10,12 +10,17 @@ const uglify = require('gulp-uglify');
 const gulpIf = require('gulp-if');
 const cssnano = require('gulp-cssnano');
 
-gulp.task('build', function() {
+gulp.task('movefonts', function() {
+		return gulp.src('src/css/wi/weathericons-regular-webfont.woff')
+	.pipe(gulp.dest('dist/wi'))
+})
+
+gulp.task('build', ['movefonts'],  function() {
 	return gulp.src('*.html')
 	.pipe(useref())
 	.pipe(gulpIf('*.js', uglify()))
 	.pipe(gulpIf('*.css', cssnano()))
-	.pipe(gulp.dest('dist'))
+	.pipe(gulp.dest('dist'));
 });
 
 gulp.task('es6', () => {

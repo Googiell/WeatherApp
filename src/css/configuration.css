@@ -6,7 +6,19 @@
   top: 0%;
   left: 0%;
   transition: left 0.4s;
-  background-color: #798188; }
+  background-color: #656565;
+  padding: 2rem 1rem; }
+  .configuration .configuration__configButton {
+    background: none;
+    border: none;
+    font-size: 1.7em;
+    padding: 1rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    height: 10vh; }
 
 .configuration--hidden {
   left: -100%; }
@@ -41,16 +53,20 @@
     letter-spacing: .1em; }
     .weatherForm .weatherForm__input::placeholder {
       color: #FFFFFF; }
+    .weatherForm .weatherForm__input:focus {
+      border: 2px solid #FFFFFF; }
   .weatherForm .weatherForm__submit {
     display: none; }
   .weatherForm .weatherForm__submitlabel {
     position: absolute;
     right: -2rem;
-    top: 2rem;
+    top: 1.8rem;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 1.5em;
+    font-size: 1.6em;
     cursor: pointer;
     padding: 2rem; }
+    .weatherForm .weatherForm__submitlabel:focus {
+      background-color: #FFFFFF; }
   .weatherForm .weatherForm__radios {
     padding: 1rem;
     font-size: 1.1em;

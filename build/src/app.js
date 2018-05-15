@@ -29,6 +29,12 @@ configButton.addEventListener('click', function () {
 	document.querySelector('.configuration').classList.toggle('configuration--hidden');
 });
 
+var backButton = document.querySelector('.configuration__configButton');
+backButton.addEventListener('click', function () {
+	document.querySelector('.container').classList.toggle('container--hidden');
+	document.querySelector('.configuration').classList.toggle('configuration--hidden');
+});
+
 },{"./components/SearchBar/SearchBar":5,"./components/SourceLink/SourceLink":7}],2:[function(require,module,exports){
 'use strict';
 

@@ -6,11 +6,10 @@
 	<title>Document</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600" rel="stylesheet">
-	<link rel="stylesheet" href="src/css/wi/weather-icons.min.css">
 	<!--build:css css/styles.min.css-->
+	<link rel="stylesheet" href="src/css/wi/weather-icons.min.css">
 	<link rel="stylesheet" type="text/css" href="src/css/main.css">
 	<link rel="stylesheet" type="text/css" href="src/css/normalize.css">
-
 	<!-- endbuild -->
 </head>
 
@@ -25,6 +24,9 @@
 		</a>
 	</header>
 	<section class="configuration configuration--hidden">
+		<button class="configuration__configButton">
+			<span class="fas fa-arrow-right"></span>
+		</button>
 		<form class="weatherForm" autocomplete="off">
 			<label for="searchInput" class="weatherForm__inputlabel"> Show me the weather for </label>
 			<input type="text" id="searchInput" class="weatherForm__input" placeholder="City name">

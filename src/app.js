@@ -24,3 +24,9 @@ configButton.addEventListener('click', () => {
 	document.querySelector('.container').classList.toggle('container--hidden');
 	document.querySelector('.configuration').classList.toggle('configuration--hidden'); 
 });
+
+const backButton = document.querySelector('.configuration__configButton');
+backButton.addEventListener('click', () => {
+	document.querySelector('.container').classList.toggle('container--hidden');
+	document.querySelector('.configuration').classList.toggle('configuration--hidden');
+});
